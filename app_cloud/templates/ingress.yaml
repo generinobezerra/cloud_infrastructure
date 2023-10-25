@@ -1,0 +1,21 @@
+{{- if .Values.application.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-app-cloud-ingress
+  labels:
+    app: {{ .Release.Name }}-app-cloud-ingress
+spec:
+  ingressClassName: {{ .Values.application.ingress.className }}
+  rules:
+    - host: http://localhost:3000/posts
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Release.Name }}-app-cloud
+                port:
+                  number: 80
+  {{- end }}

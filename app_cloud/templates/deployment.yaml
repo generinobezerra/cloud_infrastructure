@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ .Release.Name }}-app-cloud
+  name: {{ .Release.Name }}-app-cloud
+spec:
+  replicas: {{ .Values.application.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-app-cloud
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Release.Name }}-app-cloud
+    spec:
+      containers:
+      - image: {{ .Values.application.image.name }}:{{ .Values.application.image.tag }}
+        name: cloud-infrastructure
+        ports:
+        - containerPort: {{ .Values.application.ports.containerPort }}
+        resources: {}
+status: {}

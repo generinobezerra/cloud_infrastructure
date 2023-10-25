@@ -1,0 +1,13 @@
+application:
+  replicas: 3
+  image:
+    name: generino/cloud-infrastructure
+    tag: latest
+  ports:
+    containerPort: 3000
+    targetPort: 3000
+  service:
+    type: LoadBalancer
+  ingress:
+    enabled: true
+    className: nginx
